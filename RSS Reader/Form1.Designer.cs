@@ -51,7 +51,8 @@ namespace RSS_Reader
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(562, 20);
             this.txtUrl.TabIndex = 0;
-            this.txtUrl.Text = "http://www.geekpedia.com/gp_programming.xml";
+            this.txtUrl.Text = "http://datarar.com/feed";
+        
             // 
             // label1
             // 
@@ -175,6 +176,7 @@ namespace RSS_Reader
             this.Controls.Add(this.pnlInput);
             this.Name = "frmMain";
             this.Text = "RSS Reader";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.pnlInput.ResumeLayout(false);
             this.pnlInput.PerformLayout();
             this.pnlFeedInfo.ResumeLayout(false);

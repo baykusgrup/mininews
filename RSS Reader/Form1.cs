@@ -116,5 +116,10 @@ namespace RSS_Reader
             System.Diagnostics.Process.Start(lstNews.SelectedItems[0].SubItems[1].Text);   
         }
 
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
