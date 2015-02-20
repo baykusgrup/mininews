@@ -176,7 +176,6 @@ namespace RSS_Reader
             this.Controls.Add(this.pnlInput);
             this.Name = "frmMain";
             this.Text = "RSS Reader";
-            this.Load += new System.EventHandler(this.frmMain_Load);
             this.pnlInput.ResumeLayout(false);
             this.pnlInput.PerformLayout();
             this.pnlFeedInfo.ResumeLayout(false);
