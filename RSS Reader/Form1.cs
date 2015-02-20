@@ -83,7 +83,7 @@ namespace RSS_Reader
 
         private void lstNews_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // When an items is selected
+            // When an items is selected // hi
             if (lstNews.SelectedItems.Count == 1)
             {
                 // Loop through all the nodes under <channel>
