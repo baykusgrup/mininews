@@ -123,7 +123,7 @@ namespace RSS_Reader
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            txtUrl.Text = Settings.Default.Kalacak; // Get to last using url value
+            txtUrl.Text = Settings.Default.Kalacak; // Get to last using url value.
         }
 
 
