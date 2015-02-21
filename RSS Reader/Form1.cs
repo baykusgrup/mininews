@@ -1,3 +1,4 @@
+using RSS_Reader.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,10 @@ namespace RSS_Reader
 
         private void btnRead_Click(object sender, EventArgs e)
         {
+
+            Settings.Default.Kalacak = txtUrl.Text; // Save to last url.
+            Settings.Default.Save();    // Save to last url.
+
             lstNews.Items.Clear();
             this.Cursor = Cursors.WaitCursor;
             // Create a new XmlTextReader from the specified URL (RSS feed)
@@ -114,6 +119,11 @@ namespace RSS_Reader
         {
             // When double clicked open the web page
             System.Diagnostics.Process.Start(lstNews.SelectedItems[0].SubItems[1].Text);   
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            txtUrl.Text = Settings.Default.Kalacak; // Get to last using url value
         }
 
 
