@@ -1,18 +1,19 @@
-using RSS_Reader.Properties;
+﻿using NewsPaper.Properties;
+using RSS_Reader;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace RSS_Reader
+namespace NewsPaper
 {
-    public partial class frmMain : Form
+    public partial class Form1 : Form
     {
         XmlTextReader rssReader;
         XmlDocument rssDoc;
@@ -20,25 +21,43 @@ namespace RSS_Reader
         XmlNode nodeChannel;
         XmlNode nodeItem;
         ListViewItem rowNews;
-        public frmMain()
+
+        public Form1()
         {
             InitializeComponent();
         }
 
-        private void btnRead_Click(object sender, EventArgs e)
+        string url ="";
+
+        private void Form1_Load(object sender, EventArgs e)
         {
+            if (Settings.Default.url == ""){
 
-            Settings.Default.Kalacak = txtUrl.Text; // Save to last url.
-            Settings.Default.Save();    // Save to last url.
+                url = "http://www.datarar.com/feed";
+                pictureBox1.ImageLocation = Application.StartupPath + "\\images\\datarar.png";
+                Guncelle();
+            }
+            else
+            {
 
+                url = Settings.Default.url;
+                pictureBox1.ImageLocation = Settings.Default.urlImage;
+                Guncelle();
+
+            }
+            
+        }
+
+        private void Guncelle()
+        {
             lstNews.Items.Clear();
             this.Cursor = Cursors.WaitCursor;
             // Create a new XmlTextReader from the specified URL (RSS feed)
-            rssReader = new XmlTextReader(txtUrl.Text);
+            rssReader = new XmlTextReader(url);
             rssDoc = new XmlDocument();
             // Load the XML content into a XmlDocument
             rssDoc.Load(rssReader);
-            
+
             // Loop for the <rss> tag
             for (int i = 0; i < rssDoc.ChildNodes.Count; i++)
             {
@@ -61,11 +80,11 @@ namespace RSS_Reader
                 }
             }
 
-            // Set the labels with information from inside the nodes
-            lblTitle.Text = "Title: " + nodeChannel["title"].InnerText;
-            lblLanguage.Text = "Language: " + nodeChannel["language"].InnerText;
-            lblLink.Text = "Link: " + nodeChannel["link"].InnerText;
-            lblDescription.Text = "Description: " + nodeChannel["description"].InnerText;
+            // // Set the labels with information from inside the nodes
+            //lblTitle.Text = "Title: " + nodeChannel["title"].InnerText;
+            //lblLanguage.Text = "Language: " + nodeChannel["language"].InnerText;
+            //  lblLink.Text = "Link: " + nodeChannel["link"].InnerText;
+            //  lblDescription.Text = "Description: " + nodeChannel["description"].InnerText;
 
             // Loop for the <title>, <link>, <description> and all the other tags
             for (int i = 0; i < nodeChannel.ChildNodes.Count; i++)
@@ -74,7 +93,7 @@ namespace RSS_Reader
                 if (nodeChannel.ChildNodes[i].Name == "item")
                 {
                     nodeItem = nodeChannel.ChildNodes[i];
-                    
+
                     // Create a new row in the ListView containing information from inside the nodes
                     rowNews = new ListViewItem();
                     rowNews.Text = nodeItem["title"].InnerText;
@@ -84,6 +103,7 @@ namespace RSS_Reader
             }
 
             this.Cursor = Cursors.Default;
+
         }
 
         private void lstNews_SelectedIndexChanged(object sender, EventArgs e)
@@ -104,7 +124,7 @@ namespace RSS_Reader
                         {
                             // It's the item we were looking for, get the description
                             txtContent.Text = nodeItem["description"].InnerText;
-                            txtContent.Text =  HtmlRemoval.StripTagsRegex(nodeItem["description"].InnerText).ToString();
+                            txtContent.Text = HtmlRemoval.StripTagsRegex(nodeItem["description"].InnerText).ToString();
                             txtContent.Text = HtmlRemoval.StripTagsRegexCompiled(nodeItem["description"].InnerText).ToString();
                             txtContent.Text = HtmlRemoval.StripTagsCharArray(nodeItem["description"].InnerText).ToString();
                             // We don't need to loop anymore
@@ -115,17 +135,36 @@ namespace RSS_Reader
             }
         }
 
-        private void lstNews_DoubleClick(object sender, EventArgs e)
+
+        private void milliyetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // When double clicked open the web page
-            System.Diagnostics.Process.Start(lstNews.SelectedItems[0].SubItems[1].Text);   
+             pictureBox1.ImageLocation = Application.StartupPath + "\\images\\milliyet.png";
+             url = "http://www.milliyet.com.tr/D/rss/rss/RssSD.xml";
+             Settings.Default.url = url;
+             Settings.Default.urlImage = pictureBox1.ImageLocation;
+             Settings.Default.Save();
+             Guncelle();
         }
 
-        private void frmMain_Load(object sender, EventArgs e)
+        private void sabahToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            txtUrl.Text = Settings.Default.Kalacak; // Get to last using url value.
+            pictureBox1.ImageLocation = Application.StartupPath + "\\images\\hurriyet.png";
+            url = "http://rss.hurriyet.com.tr/rss.aspx?sectionId=1";
+            Settings.Default.url = url;
+            Settings.Default.urlImage = pictureBox1.ImageLocation;
+            Settings.Default.Save();
+            Guncelle();
         }
 
+        private void vatanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox1.ImageLocation = Application.StartupPath + "\\images\\zaman.png";
+            url = "http://www.zaman.com.tr/sondakika.rss";
+            Settings.Default.url = url;
+            Settings.Default.urlImage = pictureBox1.ImageLocation;
+            Settings.Default.Save();
+            Guncelle();
+        }
 
     }
 }

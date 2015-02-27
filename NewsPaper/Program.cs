@@ -1,8 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RSS_Reader
+namespace NewsPaper
 {
     static class Program
     {
@@ -13,7 +15,8 @@ namespace RSS_Reader
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.Run(new frmMain());
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RSS_Reader.Properties {
+namespace NewsPaper.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,12 +26,24 @@ namespace RSS_Reader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Kalacak {
+        public string url {
             get {
-                return ((string)(this["Kalacak"]));
+                return ((string)(this["url"]));
             }
             set {
-                this["Kalacak"] = value;
+                this["url"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string urlImage {
+            get {
+                return ((string)(this["urlImage"]));
+            }
+            set {
+                this["urlImage"] = value;
             }
         }
     }
